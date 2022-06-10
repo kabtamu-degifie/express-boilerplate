@@ -8,7 +8,7 @@ const makeApp = (app) => {
   app.use(express.json());
 
   // routes goes here
-  app.user("/api/users", userRoute);
+  app.use("/api/users", userRoute);
   // handle async errors
   app.use(error);
 };

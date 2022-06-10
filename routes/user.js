@@ -8,3 +8,5 @@ router.get("/", getAllUsers);
 
 // add a new user
 router.post("/", addUser);
+
+module.exports = router;

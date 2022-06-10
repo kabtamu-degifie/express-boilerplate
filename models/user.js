@@ -19,6 +19,11 @@ const userSchema = new mongoose.Schema(
       max: 50,
     },
 
+    userType: {
+      type: String,
+      enum: ["Supper Admin", "Patient", "Employee"],
+    },
+
     account: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Account",

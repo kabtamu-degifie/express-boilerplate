@@ -11,6 +11,7 @@ const addUser = async (req, res) => {
     firstName: req.body.firstName,
     middleName: req.body.middleName,
     lastName: req.body.lastName,
+    userType: req.body.userType,
   });
 
   const response = await user.save();

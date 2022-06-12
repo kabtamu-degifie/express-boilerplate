@@ -12,6 +12,11 @@ const addUser = async (req, res) => {
     middleName: req.body.middleName,
     lastName: req.body.lastName,
     userType: req.body.userType,
+    address: req.body.address,
+    phoneNo: req.body.phoneNo,
+    birthDay: req.body.birthDay,
+    username: req.body.username,
+    password: req.body.password,
   });
 
   const response = await user.save();

@@ -19,14 +19,32 @@ const userSchema = new mongoose.Schema(
       max: 50,
     },
 
-    userType: {
+    address: {
       type: String,
-      enum: ["Supper Admin", "Patient", "Employee"],
     },
 
-    account: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Account",
+    phoneNo: {
+      type: String,
+    },
+
+    birthDay: {
+      type: Date,
+    },
+
+    userType: {
+      type: String,
+      enum: ["Admin", "Patient", "Staff"],
+    },
+
+    username: {
+      type: String,
+      unique: true,
+      max: 15,
+    },
+
+    password: {
+      type: String,
+      max: 100,
     },
   },
   { timestamps: true }

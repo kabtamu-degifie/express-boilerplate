@@ -9,14 +9,14 @@ const {
 
 const router = express.Router();
 // get user
-router.get("/:id", getUser);
+router.get("/:id", protected, restrictTo("Admin", "Staff"), getUser);
 
 // get all users
 router.get("/", protected, restrictTo("Admin", "Staff"), getAllUsers);
 
 // add a new user
-router.post("/", addUser);
+router.post("/", protected, restrictTo("Admin", "Staff"), addUser);
 
 // update user
-router.put("/:id", updateUser);
+router.put("/:id", protected, restrictTo("Admin", "Staff"), updateUser);
 module.exports = router;

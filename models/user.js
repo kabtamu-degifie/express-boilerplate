@@ -36,6 +36,7 @@ const userSchema = new mongoose.Schema(
 
     userType: {
       type: String,
+      required: true,
       enum: ["Admin", "Patient", "Staff"],
     },
 
@@ -81,9 +82,11 @@ userSchema.pre("findOneAndUpdate", async function (next) {
 
 // generate token
 userSchema.methods.generateToken = function () {
+  console.log(this);
   const token = jwt.sign(
     {
       _id: this._id,
+      userType: this.userType,
     },
     process.env.JWT_PRIVATE_KEY,
     { expiresIn: "6h" }

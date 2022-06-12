@@ -14,6 +14,17 @@ const protected = (req, res, next) => {
   }
 };
 
+const restrictTo = (...permissons) => {
+  return (req, res, next) => {
+    if (!permissons.includes(req.user.userType))
+      return res
+        .status(403)
+        .send("You don't have access to perform this action");
+    next();
+  };
+};
+
 module.exports = {
   protected,
+  restrictTo,
 };

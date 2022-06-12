@@ -1,5 +1,5 @@
 const express = require("express");
-const { protected } = require("../middlewares/auth");
+const { protected, restrictTo } = require("../middlewares/auth");
 const {
   getAllUsers,
   getUser,
@@ -12,7 +12,7 @@ const router = express.Router();
 router.get("/:id", getUser);
 
 // get all users
-router.get("/", protected, getAllUsers);
+router.get("/", protected, restrictTo("Admin", "Staff"), getAllUsers);
 
 // add a new user
 router.post("/", addUser);

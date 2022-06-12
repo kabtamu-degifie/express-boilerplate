@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema(
 );
 
 /**
- * Hash password
+ * Hash password on create and update user
  */
 userSchema.pre("save", async function (next) {
   if (!this.password) {
@@ -64,6 +64,16 @@ userSchema.pre("save", async function (next) {
   } else {
     this.password = await getHashedData(this.password);
     next();
+  }
+});
+
+userSchema.pre("findOneAndUpdate", async function (next) {
+  let update = this.getUpdate();
+  if (!update["$set"]?.password) {
+    next();
+  } else {
+    update["$set"].password = await getHashedData(update["$set"].password);
+    next;
   }
 });
 

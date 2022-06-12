@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { getHashedData } = require("../utils/hash");
 
 const userSchema = new mongoose.Schema(
   {
@@ -53,5 +54,17 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+/**
+ * Hash password
+ */
+userSchema.pre("save", async function (next) {
+  if (!this.password) {
+    next();
+  } else {
+    this.password = await getHashedData(this.password);
+    next();
+  }
+});
 
 module.exports = mongoose.model("User", userSchema);

@@ -10,7 +10,9 @@ const login = async (req, res) => {
     return res.status(400).send("Invalid username / password.");
 
   const token = user.generateToken();
-  res.send(token);
+  res
+    .header("x-auth-token", token)
+    .send({ _id: user._id, fullName: user.fullName, username: user.username });
 };
 
 module.exports = { login };

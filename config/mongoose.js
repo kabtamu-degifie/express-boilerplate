@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const logger = require("../config/logger");
 const { mongo } = require("./vars");
 
-const { migrateUser } = require("../lib/migration.lib");
+const {
+  migrateUsers,
+  migratePermissions,
+  migrateRoles,
+} = require("../lib/migration.lib");
 
 /**
  * Connect to Mongodb
@@ -18,7 +22,9 @@ exports.connect = () => {
     })
     .then(async () => {
       logger.info("MongoDB is connected...");
-      await migrateUser();
+      await migratePermissions();
+      await migrateRoles();
+      await migrateUsers();
     });
 
   return mongoose.connection;

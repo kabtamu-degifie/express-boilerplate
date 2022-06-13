@@ -6,20 +6,12 @@ const { jwt_key } = require("../config/vars");
 
 const userSchema = new mongoose.Schema(
   {
-    firstName: { type: String, max: 50, required: true },
-    middleName: { type: String, max: 50, required: true },
-    lastName: { type: String, max: 50 },
-    address: { type: String },
-    phoneNo: { type: String },
-    birthDay: { type: Date },
-    userType: {
-      type: String,
-      required: true,
-      enum: ["Admin", "Patient", "Staff"],
-    },
+    email: { type: String, unique: true, lowercase: true, required: true },
     username: { type: String, unique: true, max: 15 },
     password: { type: String, max: 100 },
-    isActive: { type: Boolean, default: true },
+    passwordChangedAt: { type: Date },
+    lastLogin: { type: Date },
+    active: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
@@ -30,7 +22,7 @@ const userSchema = new mongoose.Schema(
 userSchema.pre("save", function preSave(next) {
   let model = this;
 
-  model.hashPasswd(model.password, (err, hash) => {
+  model.hashPassword(model.password, (err, hash) => {
     if (err) throw new Error(err);
     model.password = hash;
     next();
@@ -38,9 +30,9 @@ userSchema.pre("save", function preSave(next) {
 });
 
 userSchema.method({
-  verifyPassword(passwd) {
+  verifyPassword(password) {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(passwd, this.password, (err, isMatch) => {
+      bcrypt.compare(password, this.password, (err, isMatch) => {
         if (err) {
           return reject(err);
         }
@@ -49,7 +41,7 @@ userSchema.method({
       });
     });
   },
-  hashPasswd(passwd, cb) {
+  hashPassword(password, cb) {
     let createHash = (err, hash) => {
       if (err) {
         return cb(err);
@@ -64,7 +56,7 @@ userSchema.method({
       }
 
       // Hash the password using the generated salt
-      bcrypt.hash(passwd, salt, createHash);
+      bcrypt.hash(password, salt, createHash);
     };
 
     // Generate a salt factor
@@ -79,13 +71,6 @@ userSchema.method({
     );
     return token;
   },
-});
-
-// virtual fields
-userSchema.virtual("fullName").get(function () {
-  return `${
-    this.firstName
-  } ${this.middleName} ${this.lastName ? this.lastName : ""}`;
 });
 
 module.exports = mongoose.model("User", userSchema);

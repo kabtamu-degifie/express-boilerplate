@@ -8,7 +8,7 @@ const login = async (req, res) => {
     const token = user.generateToken();
     res
       .header("x-auth-token", token)
-      .send({ ..._.pick(user, ["_id", "username", "isActive"]), token });
+      .send({ ..._.pick(user, ["_id", "username", "active"]), token });
   } else {
     return res.status(400).send("Invalid username / password.");
   }

@@ -1,9 +1,7 @@
 const users = [
   {
-    firstName: "admin",
-    middleName: "admin",
     username: "admin",
-    userType: "Admin",
+    email: "admin@admin.com",
     password: "12345678",
   },
 ];

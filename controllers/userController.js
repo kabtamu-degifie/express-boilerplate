@@ -18,7 +18,7 @@ const addUser = async (req, res) => {
     return res.send(`The ${req.body.username} already taken.`);
   user = new User(req.body);
   const response = await user.save();
-  res.status(201).send(_.pick(response, ["fullName"]));
+  res.status(201).send(_.pick(response, ["username", "email"]));
 };
 
 const updateUser = async (req, res) => {

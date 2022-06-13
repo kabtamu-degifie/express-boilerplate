@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const _ = require("lodash");
 
 const getUser = async (req, res) => {
   const user = await User.findById(req.params.id);
@@ -12,21 +13,12 @@ const getAllUsers = async (req, res) => {
 };
 
 const addUser = async (req, res) => {
-  const user = new User({
-    firstName: req.body.firstName,
-    middleName: req.body.middleName,
-    lastName: req.body.lastName,
-    userType: req.body.userType,
-    address: req.body.address,
-    phoneNo: req.body.phoneNo,
-    birthDay: req.body.birthDay,
-    username: req.body.username,
-    password: req.body.password,
-  });
-
+  let user = await User.find({ username: req.body.username });
+  if (user.length !== 0)
+    return res.send(`The ${req.body.username} already taken.`);
+  user = new User(req.body);
   const response = await user.save();
-
-  res.status(201).send(response);
+  res.status(201).send(_.pick(response, ["fullName"]));
 };
 
 const updateUser = async (req, res) => {

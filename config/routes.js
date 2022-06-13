@@ -1,3 +1,3 @@
 module.exports = {
-  public: [],
+  public: ["/v1/api/auth/login"],
 };

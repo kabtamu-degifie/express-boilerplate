@@ -2,13 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const logger = require("./startup/logger");
 const { migrateUser } = require("./startup/migrations");
+const v1Router = require("./routes/v1.router");
 
 const app = express();
 
 app.use(cors());
 
-// add routes
-require("./startup/routes")(app);
+// Diffrent version of routers
+app.use("/v1", v1Router);
 
 // Launch server
 const port = process.env.PORT || 5000;

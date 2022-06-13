@@ -1,11 +1,11 @@
 const express = require("express");
-const { protected, restrictTo } = require("../middlewares/auth");
+const { protected, restrictTo } = require("../../middlewares/auth");
 const {
   getAllUsers,
   getUser,
   addUser,
   updateUser,
-} = require("../controllers/userController");
+} = require("../../controllers/userController");
 
 const router = express.Router();
 // get user

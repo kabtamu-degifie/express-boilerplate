@@ -1,6 +1,6 @@
 const express = require("express");
-const { addHistory } = require("../controllers/historyController");
-const { protected, restrictTo } = require("../middlewares/auth");
+const { addHistory } = require("../../controllers/historyController");
+const { protected, restrictTo } = require("../../middlewares/auth");
 
 const router = express.Router();
 

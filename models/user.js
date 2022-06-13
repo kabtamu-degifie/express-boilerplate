@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const { getHashedData } = require("../utils/hash");
-require("dotenv").config();
+const { jwt_key } = require("../config/vars");
 
 const userSchema = new mongoose.Schema(
   {
@@ -88,7 +88,7 @@ userSchema.methods.generateToken = function () {
       _id: this._id,
       userType: this.userType,
     },
-    process.env.JWT_PRIVATE_KEY,
+    jwt_key,
     { expiresIn: "6h" }
   );
   return token;

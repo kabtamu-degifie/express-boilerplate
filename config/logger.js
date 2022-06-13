@@ -1,6 +1,6 @@
 const winston = require("winston");
 require("express-async-errors");
-require("dotenv").config();
+const { canLogToConsole } = require("./vars");
 
 const logger = winston.createLogger({
   level: "info",
@@ -28,7 +28,7 @@ const logger = winston.createLogger({
   exitOnError: false,
 });
 
-if (process.env.NODE_ENV !== "production") {
+if (canLogToConsole) {
   logger.add(
     new winston.transports.Console({
       format: winston.format.simple(),

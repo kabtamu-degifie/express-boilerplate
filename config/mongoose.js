@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const logger = require("../config/logger");
-require("dotenv").config();
+const { mongo } = require("./vars");
 
 const { migrateUser } = require("../lib/migration.lib");
 
@@ -13,7 +13,7 @@ const { migrateUser } = require("../lib/migration.lib");
  */
 exports.connect = () => {
   mongoose
-    .connect(process.env.DB_URI, {
+    .connect(mongo.uri, {
       keepAlive: true,
     })
     .then(async () => {

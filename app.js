@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-
+const { port } = require("./config/vars");
 const mongoose = require("./config/mongoose");
 const logger = require("./config/logger");
 
@@ -18,7 +18,6 @@ app.use(express.json());
 app.use("/v1", v1Router);
 
 // Launch server
-const port = process.env.PORT || 5000;
 app.listen(port, () => {
   logger.info(`Listening on port: ${port}`);
 });

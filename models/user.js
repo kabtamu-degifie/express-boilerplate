@@ -9,6 +9,8 @@ const userSchema = new mongoose.Schema(
     email: { type: String, unique: true, lowercase: true, required: true },
     username: { type: String, unique: true, max: 15 },
     password: { type: String, max: 100 },
+    roles: [{ type: mongoose.Schema.Types.ObjectId, ref: "Roles" }],
+    permissions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Permissions" }],
     passwordChangedAt: { type: Date },
     lastLogin: { type: Date },
     active: { type: Boolean, default: true },

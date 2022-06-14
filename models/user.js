@@ -65,12 +65,11 @@ userSchema.method({
     bcrypt.genSalt(12, generateSalt);
   },
 
-  generateToken() {
-    const token = jwt.sign(
-      { _id: this._id, userType: this.userType },
-      jwt_key,
-      { algorithm: "HS256", expiresIn: "6h" }
-    );
+  generateToken(data) {
+    const token = jwt.sign({ data }, jwt_key, {
+      algorithm: "HS256",
+      expiresIn: "6h",
+    });
     return token;
   },
 });

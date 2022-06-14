@@ -20,12 +20,7 @@ const login = async (req, res) => {
         ...permissions,
       ])
     );
-
-    const token = user.generateToken();
-    res.send({
-      ..._.pick(user, ["_id", "username", "active", "permissions"]),
-      token,
-    });
+    res.send({ ...user._doc, token: user.generateToken(user._doc) });
   } else {
     return res.status(400).send("Invalid username / password.");
   }

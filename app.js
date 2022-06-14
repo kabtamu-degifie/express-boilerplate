@@ -23,11 +23,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.use(
-//   jwt({ secret: jwt_key, algorithms: ["HS256"] }).unless({
-//     path: routes.public,
-//   })
-// );
+app.use(
+  jwt({ secret: jwt_key, algorithms: ["HS256"] }).unless({
+    path: routes.public,
+  })
+);
 
 // Diffrent version of routers
 app.use("/v1", v1Router);

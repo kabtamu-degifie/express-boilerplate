@@ -1,22 +1,17 @@
 const express = require("express");
 const { restrictTo } = require("../../middlewares/auth");
-const {
-  getAllUsers,
-  getUser,
-  addUser,
-  updateUser,
-} = require("../../controllers/userController");
+const controller = require("../../controllers/userController");
 
 const router = express.Router();
 // get user
-router.get("/:id", restrictTo("view_user"), getUser);
+router.get("/:id", restrictTo("view_user"), controller.get);
 
 // get all users
-router.get("/", restrictTo("view_user"), getAllUsers);
+router.get("/", restrictTo("view_user"), controller.all);
 
 // add a new user
-router.post("/", restrictTo("create_user"), addUser);
+router.post("/", restrictTo("create_user"), controller.create);
 
 // update user
-router.put("/:id", restrictTo("update_user"), updateUser);
+router.put("/:id", restrictTo("update_user"), controller.update);
 module.exports = router;

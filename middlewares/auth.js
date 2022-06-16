@@ -1,13 +1,8 @@
-const jwt = require("jsonwebtoken");
-const { jwt_key } = require("../config/vars");
-
-const restrictTo = (...permissions) => {
+const hasPermission = (...permissions) => {
   return (req, res, next) => {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) return res.send(401).send("Access denied. No token provided.");
+    const user = req.auth;
     const errors = [];
     try {
-      const user = jwt.verify(token, jwt_key);
       if (user) {
         permissions.forEach((permission) => {
           if (!user.data.permissions.includes(permission)) {
@@ -27,4 +22,4 @@ const restrictTo = (...permissions) => {
   };
 };
 
-module.exports = { restrictTo };
+module.exports = { hasPermission };

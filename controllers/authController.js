@@ -1,5 +1,7 @@
 const _ = require("lodash");
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
+const { jwt_key } = require("../config/vars");
 
 const login = async (req, res) => {
   const user = await User.findOne({
@@ -20,7 +22,12 @@ const login = async (req, res) => {
         ...permissions,
       ])
     );
-    res.send({ ...user._doc, token: user.generateToken(user._doc) });
+    const token = jwt.sign({ data: user._doc }, jwt_key, {
+      algorithm: "HS256",
+      expiresIn: "6h",
+    });
+
+    res.send({ ...user._doc, token });
   } else {
     return res.status(400).send("Invalid username / password.");
   }

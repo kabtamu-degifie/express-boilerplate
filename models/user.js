@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
-const { jwt_key } = require("../config/vars");
 
 const userSchema = new mongoose.Schema(
   {
@@ -63,14 +60,6 @@ userSchema.method({
 
     // Generate a salt factor
     bcrypt.genSalt(12, generateSalt);
-  },
-
-  generateToken(data) {
-    const token = jwt.sign({ data }, jwt_key, {
-      algorithm: "HS256",
-      expiresIn: "6h",
-    });
-    return token;
   },
 });
 

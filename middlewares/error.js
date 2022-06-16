@@ -1,4 +1,6 @@
 module.exports = (error, req, res, next) => {
-  console.log(error);
+  if (error.name === "UnauthorizedError") {
+    res.status(401).send(error.message);
+  }
   res.status(500).send("Something went wrong!");
 };

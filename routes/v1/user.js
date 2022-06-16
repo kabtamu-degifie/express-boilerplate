@@ -3,7 +3,26 @@ const { restrictTo } = require("../../middlewares/auth");
 const controller = require("../../controllers/userController");
 
 const router = express.Router();
-// get user
+/**
+ * @typedef USER
+ * @property {string} username.required - A Unique usename
+ * @property {string} email.required - A Unique email
+ * @property {string} password.required - A Strong password
+ */
+
+/**
+ * Create a new user
+ *
+ * @route GET /api/users
+ * @group User - CRUD on user model
+ * @param {string} sort.query - sort parameter
+ * @param {string} page.query - set the page number
+ * @param {string} filter.query - set filter string
+ * @security JWT
+ * @returns {object} 200 - Array of users
+ * @returns {Error} default - Unexpected error
+ *
+ */
 router.get("/:id", restrictTo("view_user"), controller.get);
 
 // get all users

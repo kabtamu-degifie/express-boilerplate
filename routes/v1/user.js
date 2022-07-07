@@ -13,7 +13,7 @@ const router = express.Router();
 /**
  * Create a new user
  *
- * @route GET /api/users
+ * @route GET /users
  * @group User - CRUD on user model
  * @param {string} sort.query - sort parameter
  * @param {string} page.query - set the page number

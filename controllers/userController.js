@@ -13,7 +13,10 @@ const all = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  let user = await User.find({ username: req.body.username });
+  let user = await User.find({
+    username: req.body.username,
+    email: req.body.email,
+  });
   if (user.length !== 0)
     return res.send(`The ${req.body.username} already taken.`);
   user = new User(req.body);

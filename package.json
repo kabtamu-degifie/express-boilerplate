@@ -2,7 +2,7 @@
   "name": "express-boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",
     "dev": "DEBUG=express-boilerplate:* nodemon ./bin/www"

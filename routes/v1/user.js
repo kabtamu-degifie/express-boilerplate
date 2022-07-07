@@ -29,7 +29,7 @@ router.get("/:id", hasPermission("view_user"), controller.get);
 router.get("/", hasPermission("view_user"), controller.all);
 
 // add a new user
-router.post("/", hasPermission("create_user"), controller.create);
+router.post("/", controller.create);
 
 // update user
 router.put("/:id", hasPermission("update_user"), controller.update);

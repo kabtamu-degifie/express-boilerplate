@@ -4,9 +4,16 @@ const jwt = require("jsonwebtoken");
 const { jwt_key } = require("../config/vars");
 
 const login = async (req, res) => {
-  const user = await User.findOne({
-    username: req.body.username,
-  }).populate({ path: "roles", populate: { path: "permissions" } });
+  const user = await User.findOne()
+    .or([
+      {
+        username: req.body.username,
+      },
+      {
+        email: req.body.email,
+      },
+    ])
+    .populate({ path: "roles", populate: { path: "permissions" } });
 
   if (user && user.verifyPassword(req.body.password)) {
     // Maping roles => find permissions inside role => combine them and form set

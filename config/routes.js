@@ -1,3 +1,3 @@
 module.exports = {
-  public: ["/v1/auth/login"],
+  public: ["/v1/auth", "/v1/users"],
 };

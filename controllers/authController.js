@@ -34,7 +34,7 @@ const login = async (req, res) => {
       expiresIn: "6h",
     });
 
-    res.send({ ...user._doc, token });
+    res.send({ token });
   } else {
     return res.status(400).send("Invalid username / password.");
   }

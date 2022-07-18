@@ -16,8 +16,8 @@ const expressSwagger = require("express-swagger-generator")(app);
 const options = {
   swaggerDefinition: {
     info: {
-      description: "This simple blockchain based patient history mgt API",
-      title: "PHWB API",
+      description: "This a node express framework boilerplate API",
+      title: "NEBPT API",
       version: "1.0.0",
     },
     host: `localhost:${port}`,

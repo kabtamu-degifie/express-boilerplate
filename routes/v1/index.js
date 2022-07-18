@@ -8,19 +8,18 @@ const router = express.Router();
  * @route GET /
  * @group index - Validate and gives you back API service status
  * @returns {object} 200  - {
- *     title: "Blockchain Based Patient History Management API",
+ *     title: "Node Express Boilerplate API",
  *     version: "1.0.0",
- *     description: "It is a blockchain technology-based API to prevent patient history from modification.",
+ *     description: "Node Express Boilerplate.",
  * }
  * @returns {Error} default - Unexpected error
  */
 
 router.get("/", (req, res) => {
   res.json({
-    title: "Blockchain Based Patient History Management API",
+    title: "Node Express Boilerplate",
     version: "1.0.0",
-    description:
-      "It is a blockchain technology-based API to prevent patient history from modification.",
+    description: "Node Express Boilerplate.",
   });
 });
 

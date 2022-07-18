@@ -23,14 +23,14 @@ const router = express.Router();
  * @returns {Error} default - Unexpected error
  *
  */
-router.get("/:id", hasPermission("view_user"), controller.get);
+router.get("/:id", controller.get);
 
 // get all users
-router.get("/", hasPermission("view_user"), controller.all);
+router.get("/", controller.all);
 
 // add a new user
 router.post("/", controller.create);
 
 // update user
-router.put("/:id", hasPermission("update_user"), controller.update);
+router.put("/:id", controller.update);
 module.exports = router;

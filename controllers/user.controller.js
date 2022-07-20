@@ -40,11 +40,12 @@ const create = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  let user = await User.findById(req.params.id);
-  if (!user) return res.status(404).send("User is not found");
-
-  const validation = validateUser(req.body);
+  const { id } = req.params;
+  const validation = validateUser({ ...req.body, id });
   if (validation.error) return res.send(validation.error.details[0].message);
+
+  let user = await User.findById(id);
+  if (!user) return res.status(404).send("User is not found");
 
   let otherUser = await User.findOne().and([
     {
@@ -70,7 +71,7 @@ const update = async (req, res) => {
   }
 
   user = await User.findByIdAndUpdate(
-    req.params.id,
+    id,
     {
       $set: {
         ...req.body,

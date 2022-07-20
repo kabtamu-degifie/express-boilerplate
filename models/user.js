@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
+Joi.objectId = require("joi-objectid")(Joi);
 
 const userSchema = new mongoose.Schema(
   {
@@ -73,6 +74,7 @@ userSchema.method({
 
 const validateUser = (user) => {
   const schema = Joi.object({
+    id: Joi.objectId(),
     username: Joi.string().required().label("Username"),
     email: Joi.string().email().required().label("Email"),
     password: Joi.string().min(8).required().label("Password"),

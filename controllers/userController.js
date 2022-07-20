@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const { User, validateUser } = require("../models/user");
 const _ = require("lodash");
 
 const get = async (req, res) => {
@@ -13,12 +13,27 @@ const all = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  let user = await User.find({
-    username: req.body.username,
-    email: req.body.email,
-  });
-  if (user.length !== 0)
-    return res.send(`The ${req.body.username} already taken.`);
+  const validation = validateUser(req.body);
+  if (validation.error) return res.send(validation.error.details[0].message);
+
+  let user = await User.findOne().or([
+    {
+      username: req.body.username,
+    },
+    {
+      email: req.body.email,
+    },
+  ]);
+
+  if (user?.length !== 0) {
+    if (req.body.username === user?.username) {
+      return res.send(`The username '${req.body.username}' has already taken.`);
+    }
+    if (req.body.email === user?.email) {
+      return res.send(`The email '${req.body.email}' has already taken.`);
+    }
+  }
+
   user = new User(req.body);
   const response = await user.save();
   res.status(201).send(_.pick(response, ["username", "email"]));

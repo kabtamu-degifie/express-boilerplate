@@ -35,8 +35,8 @@ const create = async (req, res) => {
   }
 
   user = new User(req.body);
-  const response = await user.save();
-  res.status(201).send(_.pick(response, ["_id", "username", "email"]));
+  user = await user.save();
+  res.status(201).send(_.pick(user, ["_id", "username", "email"]));
 };
 
 const update = async (req, res) => {

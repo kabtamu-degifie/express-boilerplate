@@ -1,5 +1,4 @@
 const express = require("express");
-const { hasPermission } = require("../../middlewares/auth");
 const controller = require("../../controllers/user.controller");
 
 const router = express.Router();

@@ -27,10 +27,14 @@ const create = async (req, res) => {
 
   if (user) {
     if (req.body.username === user?.username) {
-      return res.send(`The username '${req.body.username}' has already taken.`);
+      return res
+        .status(400)
+        .send(`The username '${req.body.username}' has already taken.`);
     }
     if (req.body.email === user?.email) {
-      return res.send(`The email '${req.body.email}' has already taken.`);
+      return res
+        .status(400)
+        .send(`The email '${req.body.email}' has already taken.`);
     }
   }
 
@@ -63,10 +67,14 @@ const update = async (req, res) => {
 
   if (otherUser) {
     if (otherUser.username === req.body.username) {
-      return res.send(`The username '${req.body.username}' has already taken.`);
+      return res
+        .status(400)
+        .send(`The username '${req.body.username}' has already taken.`);
     }
     if (otherUser.email === req.body.email) {
-      return res.send(`The email '${req.body.email}' has already taken.`);
+      return res
+        .status(400)
+        .send(`The email '${req.body.email}' has already taken.`);
     }
   }
 
@@ -82,7 +90,7 @@ const update = async (req, res) => {
     }
   );
 
-  res.status(200).send(user);
+  res.status(200).send(_.pick(user, ["_id", "username", "email"]));
 };
 
 module.exports = { get, all, create, update };

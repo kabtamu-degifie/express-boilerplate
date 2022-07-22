@@ -14,7 +14,8 @@ const all = async (req, res) => {
 
 const create = async (req, res) => {
   const validation = validateUser(req.body);
-  if (validation.error) return res.send(validation.error.details[0].message);
+  if (validation.error)
+    return res.status(400).send(validation.error.details[0].message);
 
   let user = await User.findOne().or([
     {
@@ -49,7 +50,7 @@ const update = async (req, res) => {
   if (validation.error) return res.send(validation.error.details[0].message);
 
   let user = await User.findById(id);
-  if (!user) return res.status(404).send("User is not found");
+  if (!user) return res.status(404).send("User is not found.");
 
   let otherUser = await User.findOne().and([
     {
@@ -90,7 +91,7 @@ const update = async (req, res) => {
     }
   );
 
-  res.status(200).send(_.pick(user, ["_id", "username", "email"]));
+  res.status(200).send(user);
 };
 
 module.exports = { get, all, create, update };
